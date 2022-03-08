@@ -2,20 +2,17 @@ package com.example.democoroutine
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import com.example.democoroutine.model.CovidInfor
-import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     var api: ApiService? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +34,11 @@ class MainActivity : AppCompatActivity() {
     suspend fun getCovid(): List<CovidInfor> {
         var list: List<CovidInfor>? = listOf()
         try {
-           list = api?.getCovidInfo()?.execute()?.body()
+            list = api?.getCovidInfo()?.execute()?.body()
         }catch (e:Exception){
             e.printStackTrace()
         }
         return list!!
     }
-
 }
-
 
